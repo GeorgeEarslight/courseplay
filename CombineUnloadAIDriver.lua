@@ -1813,6 +1813,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------
 function CombineUnloadAIDriver:startChopperTurn(ix)
 	if self.combineToUnload.cp.driver:isTurningOnHeadland() then
+		self:startCourse(self.followCourse, ix)
 		self:setNewOnFieldState(self.states.HANDLE_CHOPPER_HEADLAND_TURN)
 	else
 		self.turnContext = TurnContext(self.followCourse, ix, self.aiDriverData,
