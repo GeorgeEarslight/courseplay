@@ -61,7 +61,7 @@ function LinkedList:removeX(index)
 	local preNode = self:getElementByIndex(index-1)
 	if preNode then 
 		local node = preNode.Next 
-		preNode.Next = node.Next
+		preNode.Next = node and node.Next
 		self:decrementCount()
 	else
 		self:removeFirst()
