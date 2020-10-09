@@ -228,6 +228,7 @@ function courseGenerator.generate( vehicle )
 	if CpManager.isMP then
 	--	CourseplayEvent.sendEvent(vehicle, "setVehicleWaypoints", vehicle.Waypoints);
 		CourseEvent.sendEvent(vehicle,vehicle.Waypoints)
+		CourseplayEvent.sendEvent(self, "self.cp.multiTools", self.cp.multiTools)
 	end
 	
 	return status, ok
