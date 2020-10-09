@@ -286,7 +286,7 @@ function ShovelModeAIDriver:hasEnoughSpaceInObject(dischargeNode)
 	local fillType = self.shovel:getDischargeFillType(dischargeNode)
 	local object = dischargeNode.dischargeObject
 	if object.getFillUnitFreeCapacity ~= nil and object:getFillUnitFreeCapacity(dischargeNode.dischargeFillUnitIndex, fillType, self.vehicle:getActiveFarm()) >= self:getMinNeededFreeCapacity() then
-		
+		return true
 	end
 end
 
