@@ -2946,6 +2946,7 @@ function SiloSelectedFillTypeSetting:checkSelectedFillTypes(supportedFillTypes,c
 			supportedFillTypes[data.fillType]=0
 		elseif cleanUp then	--delete not supported fillTypes 
 			self:deleteByIndex(index) 
+			return self:checkSelectedFillTypes(supportedFillTypes,cleanUp)
 		end
 	end
 end 
