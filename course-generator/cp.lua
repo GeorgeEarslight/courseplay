@@ -226,9 +226,10 @@ function courseGenerator.generate( vehicle )
 	vehicle.cp.course2dUpdateDrawData = true;
 
 	if CpManager.isMP then
-	--	CourseplayEvent.sendEvent(vehicle, "setVehicleWaypoints", vehicle.Waypoints);
 		CourseEvent.sendEvent(vehicle,vehicle.Waypoints)
-		CourseplayEvent.sendEvent(vehicle, "self.cp.multiTools", vehicle.cp.multiTools) -- need a setting for this one
+	--	CourseplayEvent.sendEvent(vehicle, "self.cp.multiTools", vehicle.cp.multiTools) -- need a setting for this one
+		vehicle:setCourseplayFunc("setMultiTools", vehicle.cp.multiTools, false, 1);
+		--setMultiTools
 	end
 	
 	return status, ok
