@@ -228,6 +228,7 @@ function courseGenerator.generate( vehicle )
 	if CpManager.isMP then
 		CourseEvent.sendEvent(vehicle,vehicle.Waypoints)
 	--	CourseplayEvent.sendEvent(vehicle, "self.cp.multiTools", vehicle.cp.multiTools) -- need a setting for this one
+		CourseplayEvent.sendEvent(vehicle, "self.cp.courseWorkWidth", vehicle.cp.courseWorkWidth) -- need a setting for this one
 		vehicle:setCourseplayFunc("setMultiTools", vehicle.cp.multiTools, false, 1);
 		--setMultiTools
 	end
