@@ -485,6 +485,10 @@
         <text name="COURSEPLAY_LOADING_SEPERATE_FILLTYPES_TRAILERS"         text="verschiedene Trailer: " />
 		<text name="COURSEPLAY_UNLOADING_AMOUNT"							text="Entladen %d of %d" />
 		<text name="COURSEPLAY_MANUAL_LOADING"								text="manuelles laden" />
+
+		<text name="COURSEPLAY_RETURN_TO_FIRST_POINT_RELEASE_DRIVER"		text="deaktiviert und entlasse CP Fahrer" />
+		<text name="COURSEPLAY_RETURN_TO_FIRST_POINT_RETURN_TO_START_AND_RELEASE_DRIVER"	text="aktiviert und entlasse CP Fahrer" />
+		
 		<!-- Replace marker, do not remove! -->
 </texts>
 </l10n>

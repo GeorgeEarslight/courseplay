@@ -2280,11 +2280,35 @@ function ImplementLowerTimeSetting:init(vehicle)
 end
 
 --- Return to first point after finishing fieldwork
----@class ReturnToFirstPointSetting : BooleanSetting
-ReturnToFirstPointSetting = CpObject(BooleanSetting)
+---@class ReturnToFirstPointSetting : SettingList
+ReturnToFirstPointSetting = CpObject(SettingList)
+ReturnToFirstPointSetting.DEACTIVED = 0
+ReturnToFirstPointSetting.RETURN_TO_START = 1
+ReturnToFirstPointSetting.RELEASE_DRIVER = 2
+ReturnToFirstPointSetting.RETURN_TO_START_AND_RELEASE_DRIVER = 3
 function ReturnToFirstPointSetting:init(vehicle)
-	BooleanSetting.init(self, 'returnToFirstPoint', 'COURSEPLAY_RETURN_TO_FIRST_POINT',
-		'COURSEPLAY_RETURN_TO_FIRST_POINT', vehicle)
+	SettingList.init(self, 'returnToFirstPoint', 'COURSEPLAY_RETURN_TO_FIRST_POINT',
+		'COURSEPLAY_RETURN_TO_FIRST_POINT', vehicle,
+		{
+			self.DEACTIVED,
+			self.RETURN_TO_START,
+			self.RELEASE_DRIVER,
+			self.RETURN_TO_START_AND_RELEASE_DRIVER	
+			},
+		{
+			"COURSEPLAY_DEACTIVATED",
+			"COURSEPLAY_ACTIVATED",
+			"COURSEPLAY_RETURN_TO_FIRST_POINT_RELEASE_DRIVER",
+			"COURSEPLAY_RETURN_TO_FIRST_POINT_RETURN_TO_START_AND_RELEASE_DRIVER"
+		})
+end
+
+function ReturnToFirstPointSetting:isReturnToStartActive()
+	return self:get() == self.RETURN_TO_START or self:get() == self.RETURN_TO_START_AND_RELEASE_DRIVER
+end
+
+function ReturnToFirstPointSetting:isReleaseDriverActive()
+	return self:get() == self.RELEASE_DRIVER or self:get() == self.RETURN_TO_START_AND_RELEASE_DRIVER
 end
 
 --- Load courses at startup?
