@@ -2745,7 +2745,7 @@ function ShowMapHotspotSetting:createMapHotspot()
 	local _, textSize = getNormalizedScreenValues(0, 6);
 	local _, textOffsetY = getNormalizedScreenValues(0, 9.5);
 	local width, height = getNormalizedScreenValues(11,11);
-]]
+]]	local helperName = self.vehicle.currentHelper and self.vehicle.currentHelper.name or ".."
 	local hotspotX, _, hotspotZ = getWorldTranslation(self.vehicle.rootNode)
 	local _, textSize = getNormalizedScreenValues(0, 9)
 	local _, textOffsetY = getNormalizedScreenValues(0, 18)
@@ -2753,7 +2753,7 @@ function ShowMapHotspotSetting:createMapHotspot()
 	self.mapHotspot = MapHotspot:new("cpHelper", MapHotspot.CATEGORY_AI)
 	self.mapHotspot:setSize(width, height)
 	self.mapHotspot:setLinkedNode(self.vehicle.components[1].node)											-- objectId to what the hotspot is attached to
-	self.mapHotspot:setText(string.format('CP(%s)\n%s', tostring(self.vehicle.currentHelper.name),self:getMapHotspotText(self.vehicle)))
+	self.mapHotspot:setText(string.format('CP(%s)\n%s', tostring(helperName),self:getMapHotspotText(self.vehicle)))
 	self.mapHotspot:setImage(nil, getNormalizedUVs(MapHotspot.UV.HELPER), {0.052, 0.1248, 0.672, 1})
 	self.mapHotspot:setBackgroundImage(nil, getNormalizedUVs(MapHotspot.UV.HELPER))
 	self.mapHotspot:setIconScale(0.7)
@@ -2791,13 +2791,19 @@ end
 
 function ShowMapHotspotSetting:onWriteStream(stream)
 	SettingList.onWriteStream(self,stream)
-	streamWriteBool(stream,self.mapHotspot~=nil)
-	
+	if self.mapHotspot~=nil then 
+		streamWriteBool(stream,true)
+		streamWriteUInt8(streamId, self.vehicle.currentHelper.index)
+	else 
+		streamWriteBool(stream,false)
+	end
 end
 
 function ShowMapHotspotSetting:onReadStream(stream)
 	SettingList.onReadStream(self,stream)
 	if streamReadBool(stream) then
+		local helperIndex = streamReadUInt8(streamId)
+		self.vehicle.currentHelper = g_helperManager:getHelperByIndex(helperIndex)
 		--add to activeCoursePlayers
 		CpManager:addToActiveCoursePlayers(self.vehicle)	
 		-- add ingameMap icon
