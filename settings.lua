@@ -2799,7 +2799,7 @@ function ShowMapHotspotSetting:onReadStream(stream)
 	SettingList.onReadStream(self,stream)
 	if streamReadBool(stream) then
 		--add to activeCoursePlayers
-		CpManager:addToActiveCoursePlayers(self)	
+		CpManager:addToActiveCoursePlayers(self.vehicle)	
 		-- add ingameMap icon
 		self:createMapHotspot();
 	end
