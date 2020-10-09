@@ -301,7 +301,7 @@ end
 function ShovelModeAIDriver:almostFullObject(dischargeNode)
 	local fillType = self.shovel:getDischargeFillType(dischargeNode)
 	local object = dischargeNode.dischargeObject
-	if object.getFillUnitFreeCapacity ~= nil and object:getFillUnitFreeCapacity(dischargeNode.dischargeFillUnitIndex, fillType, self.vehicle:getActiveFarm()) <=300  then
+	if object.getFillUnitFreeCapacity ~= nil and object:getFillUnitFreeCapacity(dischargeNode.dischargeFillUnitIndex, fillType, self.vehicle:getActiveFarm()) <=450  then
 		return true
 	end
 end
@@ -360,7 +360,7 @@ end
 
 
 function ShovelModeAIDriver:getMinNeededFreeCapacity()
-	return math.min(self.shovel:getFillUnitCapacity(1)/10,self.shovel:getFillUnitFillLevel(1))
+	return math.min(self.shovel:getFillUnitCapacity(1)/5,self.shovel:getFillUnitFillLevel(1))
 end
 
 function ShovelModeAIDriver:getFillLevelDoesChange()
