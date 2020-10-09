@@ -239,6 +239,7 @@ function ShovelModeAIDriver:drive(dt)
 			end;
 			self:hold()
 		elseif currentDischargeNode.dischargeObject or currentDischargeNode.dischargeFailedReason == Dischargeable.DISCHARGE_REASON_NO_FREE_CAPACITY then 
+			self:setShovelToPositionFinshed(4,dt)
 			self:hold()
 		else --drive in straight line to waitPoint is UnloadStation(UnloadTrigger) or correct Trailer was found
 			notAllowedToDrive = true
@@ -254,7 +255,9 @@ function ShovelModeAIDriver:drive(dt)
 				self.ppc:initialize(newPoint)
 				self:setShovelState(self.states.STATE_GO_BACK_FROM_EMPTYPOINT);
 			end
-		end
+		elseif not self.shovel:getCanDischargeToObject(dischargeNode) then
+			self:setShovelState(self.states.STATE_START_UNLOAD);
+		end		
 	elseif self.shovelState == self.states.STATE_GO_BACK_FROM_EMPTYPOINT then
 		self.refSpeed = self.vehicle.cp.speeds.reverse
 		if not self.course:isReverseAt(self.ppc:getCurrentWaypointIx()) then
